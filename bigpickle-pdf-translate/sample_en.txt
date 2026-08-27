@@ -1,0 +1,18 @@
+# Translation of sample_ja
+
+## Original Page 1
+
+The evolution of artificial intelligence and natural language processing.
+
+(NLP) is a field of artificial intelligence that allows computers to understand, interpret, and generate human languages. In recent years, the development of deep learning has dramatically increased the accuracy of machine translation.
+
+In particular, the appearance of transform models greatly improved the ease and context of translation. Today many systems can be run at high speed in local environments.
+
+## Original Page 2
+
+Chapter 2: Practical Applications
+
+Machine translation technology is used in a wide range of fields, such as translating multilingual documents, smoothing international business, sharing academic research. Local model translation is the safest option in an environment where privacy is important.
+
+By running a local translation, you can safely translate sensitive documents even when you have no Internet connection. This helps us avoid the risk of a data leak.
+
