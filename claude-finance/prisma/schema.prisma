@@ -1,0 +1,29 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Transaction {
+  id          String   @id @default(cuid())
+  type        String   // STRICTLY: "INCOME" or "EXPENSE"
+  amount      Float
+  date        DateTime
+  category    String
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([date])
+}
+
+model StockPosition {
+  id        String   @id @default(cuid())
+  ticker    String   @unique // Uppercase, e.g., "AAPL"
+  shares    Float
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
