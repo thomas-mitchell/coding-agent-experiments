@@ -17,7 +17,7 @@ npm run dev            # http://localhost:3000
 
 | Script | What it does |
 |---|---|
-| `npm run dev` | Dev server (webpack — see *Environment notes*) |
+| `npm run dev` | Dev server (Turbopack) |
 | `npm run build` | Production build |
 | `npm run db:push` | Sync `schema.prisma` to the SQLite file |
 | `npm run db:seed` | Replace all data with the sample set |
@@ -50,24 +50,6 @@ Two notes on the layout:
 - Each schema has a **form variant** (`TransactionFormSchema`) whose numeric
   fields are strings, matching what an `<input>` actually holds. The server
   re-validates against the canonical schema regardless of what the client sent.
-
-## Environment notes
-
-**This project sits on `D:`, which is exFAT.** That filesystem cannot represent
-symlinks, and it changes two things:
-
-- **`next dev` runs under webpack, not Turbopack.** Turbopack creates junction
-  points under `.next/` for server-external packages (Prisma among them, whether
-  or not it is listed in `next.config.ts`); exFAT rejects them with `os error 1`
-  and the dev server 500s on any page that touches the database.
-- **`npm run build` does not work on this drive**, under either bundler.
-  Turbopack fails on the same junction creation; webpack fails because
-  `readlink` on an ordinary exFAT file returns `EISDIR` rather than the `EINVAL`
-  its resolver expects. The build has been verified to pass on an NTFS volume
-  with both bundlers and no code changes — moving the project to `C:` (or any
-  NTFS drive) restores `next build`, and lets `dev` drop back to Turbopack.
-
-Dev, lint, and typecheck all work here; only the production build needs NTFS.
 
 ## Dependency pins
 
