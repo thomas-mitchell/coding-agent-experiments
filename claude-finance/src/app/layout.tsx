@@ -4,6 +4,8 @@ import Link from "next/link";
 import { WalletMinimal } from "lucide-react";
 
 import { NavLink } from "@/components/nav-link";
+import { ThemeScript } from "@/components/theme-script";
+import { ThemeToggle } from "@/components/theme-toggle";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -25,8 +27,15 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
+      data-theme-mode="system"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      // The inline script below rewrites the class and data attribute before
+      // React hydrates; this tells React to keep the DOM's version.
+      suppressHydrationWarning
     >
+      <head>
+        <ThemeScript />
+      </head>
       <body className="min-h-full flex flex-col bg-background text-foreground">
         <header className="sticky top-0 z-40 border-b bg-background/80 backdrop-blur">
           <div className="mx-auto flex w-full max-w-6xl flex-wrap items-center gap-x-6 gap-y-2 px-4 py-3 sm:px-6">
@@ -39,6 +48,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
               <NavLink href="/transactions">Transactions</NavLink>
               <NavLink href="/portfolio">Portfolio</NavLink>
             </nav>
+            <ThemeToggle />
           </div>
         </header>
         <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-8 sm:px-6">

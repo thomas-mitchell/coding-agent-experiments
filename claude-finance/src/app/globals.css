@@ -49,6 +49,7 @@
 }
 
 :root {
+  color-scheme: light;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
@@ -98,6 +99,7 @@
 }
 
 .dark {
+  color-scheme: dark;
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.205 0 0);
@@ -151,4 +153,19 @@
   html {
     @apply font-sans;
   }
+}
+
+/*
+  The theme toggle's icon follows `data-theme-mode` on <html>, which the inline
+  script sets while the document is still parsing. Driving it from CSS rather
+  than React state means the correct icon is in the first paint and there is
+  nothing for hydration to disagree about.
+*/
+[data-theme-mode] [data-mode] {
+  display: none;
+}
+[data-theme-mode="system"] [data-mode="system"],
+[data-theme-mode="light"] [data-mode="light"],
+[data-theme-mode="dark"] [data-mode="dark"] {
+  display: inline-flex;
 }

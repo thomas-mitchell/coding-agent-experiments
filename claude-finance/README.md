@@ -39,14 +39,23 @@ src/
     schemas.ts             zod schemas shared by forms and actions
     yahoo-finance.ts       yahoo-finance2 wrapper
     format.ts              currency/share formatting
+    theme.ts               light/dark/system mode, read + applied on <html>
 ```
 
-Two notes on the layout:
+Three notes on the layout:
 
 - **zod schemas live in `lib/schemas.ts`, not in the action files.** A
   `"use server"` module may only export async functions, so the schemas cannot
   live beside the actions that use them — and the client forms need the same
   definitions.
+- **The theme is applied by an inline script in `<head>`, not by React.**
+  `components/theme-script.tsx` runs while the document is still parsing and
+  puts the stored mode on `<html>` (the `dark` class plus `data-theme-mode`)
+  before the first paint, so there is no flash of the light palette. `<html>`
+  carries `suppressHydrationWarning` so React accepts the DOM's version. The
+  toggle holds no React state — its icon is chosen from `data-theme-mode` in
+  CSS — and its `useLayoutEffect` re-applies the attributes after the dev-only
+  Strict Mode remount clears them.
 - Each schema has a **form variant** (`TransactionFormSchema`) whose numeric
   fields are strings, matching what an `<input>` actually holds. The server
   re-validates against the canonical schema regardless of what the client sent.
