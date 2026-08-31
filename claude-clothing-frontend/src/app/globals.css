@@ -1,0 +1,31 @@
+@import "tailwindcss";
+
+@theme {
+  --color-promo: #0b1f8f; /* navy promo bar */
+  --color-ink: #000000; /* primary text */
+  --color-subtle: #666666; /* breadcrumbs, placeholders */
+  --color-hairline: #e5e7eb; /* every border in the reference is this weight */
+  --color-fill: #f7f7f7; /* card interior */
+  --color-gold: #eaddc5; /* "Need some help?" pill */
+
+  --font-sans: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
+}
+
+/*
+  The reference sets almost every piece of chrome - promo bar, sub-nav, labels,
+  buttons - in the same tiny bold wide-tracked uppercase. Naming it once keeps
+  the tracking consistent; eyeballing it per-component is what makes a clone
+  read as "close but off".
+*/
+@utility chrome-label {
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+}
+
+body {
+  background: #ffffff;
+  color: var(--color-ink);
+}
