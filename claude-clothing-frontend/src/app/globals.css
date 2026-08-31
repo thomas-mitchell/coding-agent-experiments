@@ -6,7 +6,6 @@
   --color-subtle: #666666; /* breadcrumbs, placeholders */
   --color-hairline: #e5e7eb; /* every border in the reference is this weight */
   --color-fill: #f7f7f7; /* card interior */
-  --color-gold: #eaddc5; /* "Need some help?" pill */
 
   --font-sans: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
 }

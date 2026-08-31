@@ -32,6 +32,39 @@ function requireWebhookUrl(): string {
   return WEBHOOK_URL;
 }
 
+/*
+ * The person half of the composite is fixed rather than uploaded: one base
+ * figure served straight from /public.
+ */
+export const PERSON_IMAGE = {
+  src: "/kenji.png",
+  name: "kenji.png",
+  type: "image/png",
+  alt: "Kenji, the fixed base figure used for every try-on",
+} as const;
+
+/**
+ * Fetches the base image and wraps it in a File.
+ *
+ * Deliberately requests the original asset rather than reusing whatever
+ * `next/image` painted on screen: that is a resized, re-encoded variant served
+ * from the optimiser, and the workflow should receive the full-quality source.
+ * Returning a File (not a bare Blob) keeps the request identical in shape to
+ * the one a user-picked image produced -- same `image1` field, same multipart
+ * encoding, same filename metadata.
+ */
+export async function loadPersonImage(signal?: AbortSignal): Promise<File> {
+  const response = await fetch(PERSON_IMAGE.src, { signal });
+  if (!response.ok) {
+    throw new Error(
+      `Could not load the base image ${PERSON_IMAGE.src} (status ${response.status}).`,
+    );
+  }
+  return new File([await response.blob()], PERSON_IMAGE.name, {
+    type: PERSON_IMAGE.type,
+  });
+}
+
 export const ACCEPTED_MIME_TYPES = ["image/jpeg", "image/png", "image/webp"];
 export const ACCEPT_ATTRIBUTE = ACCEPTED_MIME_TYPES.join(",");
 export const MAX_FILE_BYTES = 10 * 1024 * 1024;

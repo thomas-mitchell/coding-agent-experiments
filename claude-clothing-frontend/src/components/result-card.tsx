@@ -36,7 +36,7 @@ export function ResultCard({ imageUrl, isLoading, error }: ResultCardProps) {
               <>
                 <span className="chrome-label text-ink">Your result</span>
                 <p className="max-w-[220px] text-[11px] leading-relaxed text-subtle">
-                  Add both images, then generate to see the composite here.
+                  Choose a garment, then generate to see the composite here.
                 </p>
               </>
             )}
