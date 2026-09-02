@@ -43,26 +43,88 @@ export const PERSON_IMAGE = {
   alt: "Kenji, the fixed base figure used for every try-on",
 } as const;
 
+/*
+ * Ready-made garments served from /public, offered alongside the uploader so
+ * the tool is usable without hunting for a product shot first.
+ */
+export type GarmentPreset = {
+  id: string;
+  src: string;
+  name: string;
+  type: string;
+  label: string;
+  alt: string;
+};
+
+export const GARMENT_PRESETS: readonly GarmentPreset[] = [
+  {
+    id: "jacket01",
+    src: "/clothing/jacket01.webp",
+    name: "jacket01.webp",
+    type: "image/webp",
+    label: "Shearling jacket",
+    alt: "Brown suede trucker jacket with a cream shearling lining",
+  },
+  {
+    id: "jacket02",
+    src: "/clothing/jacket02.jpg",
+    name: "jacket02.jpg",
+    type: "image/jpeg",
+    label: "Puffer jacket",
+    alt: "Orange quilted down puffer jacket worn open",
+  },
+  {
+    id: "suit01",
+    src: "/clothing/suit01.webp",
+    name: "suit01.webp",
+    type: "image/webp",
+    label: "Grey suit",
+    alt: "Grey pinstripe two-piece suit with a white shirt and burgundy tie",
+  },
+  {
+    id: "suit02",
+    src: "/clothing/suit02.jpg",
+    name: "suit02.jpg",
+    type: "image/jpeg",
+    label: "Cream suit",
+    alt: "Cream single-breasted suit jacket with a white shirt and tie",
+  },
+] as const;
+
 /**
- * Fetches the base image and wraps it in a File.
+ * Fetches an asset from /public and wraps it in a File.
  *
  * Deliberately requests the original asset rather than reusing whatever
  * `next/image` painted on screen: that is a resized, re-encoded variant served
  * from the optimiser, and the workflow should receive the full-quality source.
  * Returning a File (not a bare Blob) keeps the request identical in shape to
- * the one a user-picked image produced -- same `image1` field, same multipart
- * encoding, same filename metadata.
+ * the one a user-picked image produced -- same multipart encoding, same
+ * filename metadata -- so nothing downstream cares where the image came from.
  */
-export async function loadPersonImage(signal?: AbortSignal): Promise<File> {
-  const response = await fetch(PERSON_IMAGE.src, { signal });
+async function loadPublicImage(
+  asset: { src: string; name: string; type: string },
+  signal?: AbortSignal,
+): Promise<File> {
+  const response = await fetch(asset.src, { signal });
   if (!response.ok) {
     throw new Error(
-      `Could not load the base image ${PERSON_IMAGE.src} (status ${response.status}).`,
+      `Could not load the image ${asset.src} (status ${response.status}).`,
     );
   }
-  return new File([await response.blob()], PERSON_IMAGE.name, {
-    type: PERSON_IMAGE.type,
-  });
+  return new File([await response.blob()], asset.name, { type: asset.type });
+}
+
+/** Loads the fixed person half of the composite. */
+export function loadPersonImage(signal?: AbortSignal): Promise<File> {
+  return loadPublicImage(PERSON_IMAGE, signal);
+}
+
+/** Loads one of the built-in garments as though the user had picked it. */
+export function loadGarmentPreset(
+  preset: GarmentPreset,
+  signal?: AbortSignal,
+): Promise<File> {
+  return loadPublicImage(preset, signal);
 }
 
 export const ACCEPTED_MIME_TYPES = ["image/jpeg", "image/png", "image/webp"];

@@ -2,16 +2,26 @@
 
 import { useRef, useState } from "react";
 
+import { GarmentPresets } from "@/components/garment-presets";
 import { SlidersIcon } from "@/components/icons";
 import { PersonCard } from "@/components/person-card";
 import { ResultCard } from "@/components/result-card";
 import { UploadCard } from "@/components/upload-card";
-import { generateTryOn, loadPersonImage } from "@/lib/try-on";
+import {
+  generateTryOn,
+  loadGarmentPreset,
+  loadPersonImage,
+  type GarmentPreset,
+} from "@/lib/try-on";
 import { useObjectUrl } from "@/lib/use-object-url";
 
 export function TryOnStudio() {
   // Only the garment is chosen by the user; the person image is fixed.
   const [image2, setImage2] = useState<File | null>(null);
+  // Which bundled garment is in the slot, if any -- an uploaded file leaves
+  // this null, which is what un-highlights the thumbnails.
+  const [presetId, setPresetId] = useState<string | null>(null);
+  const [pendingPresetId, setPendingPresetId] = useState<string | null>(null);
   const [result, setResult] = useState<Blob | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -25,7 +35,43 @@ export function TryOnStudio() {
   // updates are async, so `isLoading` alone can still let a double-click past.
   const inFlight = useRef(false);
 
+  // The newest garment choice wins. Without this, a slow preset fetch landing
+  // after the user picked something else -- or uploaded a file -- would quietly
+  // replace it with the stale one.
+  const latestGarmentRequest = useRef(0);
+
   const canGenerate = Boolean(image2) && !isLoading;
+
+  function setGarment(file: File | null, fromPreset: string | null) {
+    latestGarmentRequest.current += 1;
+    setPendingPresetId(null);
+    setImage2(file);
+    setPresetId(fromPreset);
+  }
+
+  async function handlePresetSelect(preset: GarmentPreset) {
+    if (isLoading) return;
+
+    const request = (latestGarmentRequest.current += 1);
+    setError(null);
+    setPendingPresetId(preset.id);
+
+    try {
+      const file = await loadGarmentPreset(preset);
+      if (request !== latestGarmentRequest.current) return;
+      setPendingPresetId(null);
+      setImage2(file);
+      setPresetId(preset.id);
+    } catch (caught) {
+      if (request !== latestGarmentRequest.current) return;
+      setPendingPresetId(null);
+      setError(
+        caught instanceof Error
+          ? caught.message
+          : `Could not load ${preset.label}.`,
+      );
+    }
+  }
 
   async function handleGenerate() {
     if (!image2 || inFlight.current) return;
@@ -103,20 +149,33 @@ export function TryOnStudio() {
 
       <div className="mt-6 grid grid-cols-1 gap-8 md:grid-cols-3">
         <PersonCard />
-        <UploadCard
-          index="02"
-          title="Garment"
-          hint="The item to try on, ideally shot flat or on a plain background."
-          file={image2}
-          previewUrl={image2Preview}
-          disabled={isLoading}
-          onSelect={(file) => {
-            setError(null);
-            setImage2(file);
-          }}
-          onClear={() => setImage2(null)}
-          onReject={setError}
-        />
+        {/*
+          The presets sit in card 02's column, under its caption row: they are
+          the same choice the uploader makes, so they belong to that slot rather
+          than floating somewhere else on the page.
+        */}
+        <div className="flex flex-col">
+          <UploadCard
+            index="02"
+            title="Garment"
+            hint="The item to try on, ideally shot flat or on a plain background."
+            file={image2}
+            previewUrl={image2Preview}
+            disabled={isLoading}
+            onSelect={(file) => {
+              setError(null);
+              setGarment(file, null);
+            }}
+            onClear={() => setGarment(null, null)}
+            onReject={setError}
+          />
+          <GarmentPresets
+            selectedId={presetId}
+            pendingId={pendingPresetId}
+            disabled={isLoading}
+            onSelect={handlePresetSelect}
+          />
+        </div>
         <ResultCard imageUrl={resultUrl} isLoading={isLoading} error={error} />
       </div>
     </main>
