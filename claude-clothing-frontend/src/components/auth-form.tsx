@@ -20,7 +20,8 @@ const COPY = {
   },
   signup: {
     heading: "Create account",
-    blurb: "Sign up with your name, email and a password.",
+    blurb:
+      "Sign up with your name, email and a password. The account is free; the studio is a one-off A$9.99.",
     submit: "Create account",
     pending: "Creating account\u2026",
     switchText: "Already have an account?",

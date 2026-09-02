@@ -1,8 +1,15 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
-/** Routes reachable while signed out. Everything else redirects to /login. */
-const PUBLIC_PREFIXES = ["/login", "/signup", "/auth"];
+/**
+ * Routes reachable while signed out. Everything else redirects to /login.
+ *
+ * `/api/stripe` is here because Stripe sends no cookies -- a webhook delivery
+ * would otherwise be answered with a redirect to the login page. That route
+ * authenticates itself by verifying the Stripe signature instead. `/paywall`
+ * and `/payment` stay gated: both need to know which account is paying.
+ */
+const PUBLIC_PREFIXES = ["/login", "/signup", "/auth", "/api/stripe"];
 
 /**
  * Refreshes the Supabase auth token on every request and gates the app.
