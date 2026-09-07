@@ -1,0 +1,1051 @@
+<title>Dave's Gym</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap">
+<style>
+  /* Neon-cyber palette. Committed to a single dark world: the scheme has no
+     honest light equivalent, so every colour below is painted explicitly. */
+  :root {
+    --bg: #0D0221;
+    --surface: #15082C;
+    --card: #1A1B2E;
+    --ink: #F0F0F0;
+    --ink-2: #888899;
+    --rule: #3D3D5C;
+    --rule-soft: #262635;
+
+    --green: #02FF9F;
+    --magenta: #BC13FE;
+    --cyan: #00B8FF;
+    --pink: #FF0055;
+
+    --accent: var(--green);
+    --panel: #0D0221;
+    --panel-2: #080116;
+    --panel-ink: #F0F0F0;
+    --panel-ink-2: #888899;
+    --panel-rule: #3D3D5C;
+    --panel-accent: var(--magenta);
+
+    --f: "Archivo", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --wide: 125;
+    --narrow: 88;
+
+    --s1: 0.8125rem;
+    --s2: 0.9375rem;
+    --s3: 1.0625rem;
+    --s4: 1.3125rem;
+    --s5: 1.6875rem;
+    --s6: 2.25rem;
+    --measure: 62ch;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--f);
+    font-variation-settings: "wdth" 100, "wght" 400;
+    font-size: var(--s3);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: inherit; }
+
+  :focus-visible {
+    outline: 2px solid var(--cyan);
+    outline-offset: 3px;
+  }
+
+  ::selection { background: var(--magenta); color: #FFFFFF; }
+
+  .wrap {
+    width: min(1180px, 100% - 3rem);
+    margin-inline: auto;
+  }
+
+  @media (max-width: 640px) {
+    .wrap { width: min(1180px, 100% - 2rem); }
+  }
+
+  /* ---------- shared type ---------- */
+
+  .display {
+    font-variation-settings: "wdth" var(--wide), "wght" 800;
+    line-height: 0.94;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+    margin: 0;
+  }
+
+  .num {
+    font-variation-settings: "wdth" var(--narrow), "wght" 700;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .lede {
+    font-size: var(--s4);
+    line-height: 1.5;
+    max-width: 34ch;
+    margin: 0;
+  }
+
+  .prose {
+    max-width: var(--measure);
+    margin: 0;
+  }
+
+  /* ---------- hero ---------- */
+
+  .hero {
+    background:
+      radial-gradient(120% 95% at 78% -10%, rgba(188, 19, 254, 0.20), transparent 62%),
+      radial-gradient(95% 75% at 4% 105%, rgba(0, 184, 255, 0.12), transparent 62%),
+      var(--panel);
+    color: var(--panel-ink);
+    padding-block: 1.75rem 4.5rem;
+  }
+
+  .topbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem 2rem;
+    padding-bottom: 3.75rem;
+  }
+
+  .mark {
+    font-variation-settings: "wdth" var(--wide), "wght" 900;
+    font-size: 1.5rem;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+    line-height: 1;
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+  }
+
+  .mark span {
+    font-variation-settings: "wdth" var(--narrow), "wght" 500;
+    font-size: 0.75rem;
+    text-transform: none;
+    letter-spacing: 0.04em;
+    color: var(--panel-ink-2);
+  }
+
+  .nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.6rem;
+    font-size: var(--s2);
+  }
+
+  .nav a {
+    text-decoration: none;
+    color: var(--panel-ink-2);
+    padding-bottom: 2px;
+    border-bottom: 1px solid transparent;
+  }
+
+  .nav a:hover { color: var(--panel-ink); border-bottom-color: var(--cyan); }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+    gap: 3.5rem;
+    align-items: start;
+  }
+
+  .hero h1 {
+    font-size: clamp(2.75rem, 6.4vw, 5.25rem);
+  }
+
+  .hero-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+  }
+
+  .hero .lede { color: var(--panel-ink-2); }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.875rem;
+  }
+
+  .btn {
+    display: inline-block;
+    text-decoration: none;
+    font-size: var(--s2);
+    font-variation-settings: "wdth" 100, "wght" 600;
+    padding: 0.8rem 1.4rem;
+    border: 1px solid var(--panel-accent);
+  }
+
+  .btn-solid {
+    background: var(--magenta);
+    color: #FFFFFF;
+    box-shadow: 0 0 24px rgba(188, 19, 254, 0.35);
+  }
+
+  .btn-solid:hover { background: #CB3EFF; box-shadow: 0 0 32px rgba(188, 19, 254, 0.5); }
+  .btn-ghost { color: var(--panel-ink); border-color: var(--panel-rule); }
+  .btn-ghost:hover { border-color: var(--cyan); color: var(--cyan); }
+
+  /* ---------- status board ---------- */
+
+  .board {
+    border: 1px solid var(--panel-rule);
+    background: var(--card);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .board-state {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .board-state strong {
+    font-variation-settings: "wdth" 112, "wght" 800;
+    font-size: var(--s5);
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+  }
+
+  .board-state .sub {
+    font-size: var(--s2);
+    color: var(--panel-ink-2);
+  }
+
+  /* Live state carries the colour: green when a coach is on, cyan when the
+     door is fob-only. The square matches the theme's zero corner radius. */
+  #state { color: var(--green); text-shadow: 0 0 20px rgba(2, 255, 159, 0.4); }
+  #state.fob-only { color: var(--cyan); text-shadow: 0 0 20px rgba(0, 184, 255, 0.35); }
+
+  .dot {
+    display: inline-block;
+    width: 0.55rem;
+    height: 0.55rem;
+    background: currentColor;
+    box-shadow: 0 0 10px currentColor;
+    margin-right: 0.55rem;
+    vertical-align: 0.12em;
+  }
+
+  .chart {
+    display: flex;
+    align-items: flex-end;
+    gap: 2px;
+    height: 92px;
+    border-bottom: 1px solid var(--panel-rule);
+    padding-bottom: 2px;
+  }
+
+  .bar {
+    flex: 1;
+    min-width: 0;
+    height: 6%;
+    background: var(--rule);
+    transform-origin: bottom;
+    transition: height 0.25s ease, background-color 0.25s ease;
+    animation: rise 0.5s cubic-bezier(0.2, 0.8, 0.3, 1) backwards;
+  }
+
+  .bar.now {
+    background: var(--magenta);
+    box-shadow: 0 0 14px rgba(188, 19, 254, 0.65);
+  }
+
+  @keyframes rise {
+    from { transform: scaleY(0); }
+    to { transform: scaleY(1); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .bar { animation: none; transition: none; }
+  }
+
+  .chart-axis {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.6875rem;
+    color: var(--panel-ink-2);
+    font-variation-settings: "wdth" var(--narrow), "wght" 500;
+    margin-top: 0.4rem;
+  }
+
+  .days {
+    display: flex;
+    gap: 4px;
+  }
+
+  .days button {
+    flex: 1;
+    font: inherit;
+    font-size: 0.75rem;
+    font-variation-settings: "wdth" var(--narrow), "wght" 600;
+    padding: 0.4rem 0;
+    background: transparent;
+    color: var(--panel-ink-2);
+    border: 1px solid var(--panel-rule);
+    cursor: pointer;
+  }
+
+  .days button:hover { color: var(--cyan); border-color: var(--cyan); }
+
+  .days button[aria-pressed="true"] {
+    background: var(--green);
+    border-color: var(--green);
+    color: var(--bg);
+  }
+
+  /* ---------- sections ---------- */
+
+  .section {
+    padding-block: 5rem;
+    border-top: 1px solid var(--rule);
+  }
+
+  .section-alt { background: var(--surface); }
+
+  .section-dark {
+    background:
+      radial-gradient(85% 120% at 92% 0%, rgba(0, 184, 255, 0.14), transparent 60%),
+      var(--card);
+    color: var(--panel-ink);
+    border-top: 1px solid var(--rule);
+  }
+
+  .h2 {
+    font-variation-settings: "wdth" var(--wide), "wght" 800;
+    font-size: clamp(1.75rem, 3.4vw, var(--s6));
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    margin: 0 0 0.75rem;
+    text-wrap: balance;
+  }
+
+  .section-intro {
+    max-width: 46ch;
+    color: var(--ink-2);
+    margin: 0 0 3rem;
+  }
+
+  .section-dark .section-intro { color: var(--panel-ink-2); }
+
+  /* ---------- inventory ---------- */
+
+  .kit {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 4rem;
+  }
+
+  .kit div {
+    display: flex;
+    align-items: baseline;
+    gap: 1.25rem;
+    padding: 0.9rem 0;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+
+  .kit b {
+    font-variation-settings: "wdth" var(--narrow), "wght" 800;
+    font-variant-numeric: tabular-nums;
+    font-size: var(--s4);
+    color: var(--accent);
+    min-width: 4.75rem;
+    text-align: right;
+    flex: none;
+  }
+
+  .kit p { margin: 0; font-size: var(--s2); }
+
+  .kit .note b {
+    color: var(--ink-2);
+    font-size: var(--s2);
+    font-variation-settings: "wdth" var(--narrow), "wght" 500;
+  }
+
+  /* ---------- coach ---------- */
+
+  .split {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .split p { margin: 0; }
+  .split p + p { margin-top: 1.1rem; }
+
+  .facts {
+    margin: 0;
+    border-top: 1px solid var(--rule);
+  }
+
+  .facts div {
+    display: grid;
+    grid-template-columns: 10rem minmax(0, 1fr);
+    gap: 1rem;
+    padding: 0.85rem 0;
+    border-bottom: 1px solid var(--rule-soft);
+    font-size: var(--s2);
+  }
+
+  .facts dt { color: var(--ink-2); margin: 0; }
+  .facts dd { margin: 0; }
+
+  /* ---------- timetable ---------- */
+
+  .table-scroll { overflow-x: auto; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--s2);
+    min-width: 660px;
+  }
+
+  th {
+    text-align: left;
+    font-variation-settings: "wdth" var(--narrow), "wght" 700;
+    color: var(--ink-2);
+    padding: 0 1.25rem 0.6rem 0;
+    border-bottom: 1px solid var(--ink);
+    white-space: nowrap;
+  }
+
+  td {
+    padding: 0.95rem 1.25rem 0.95rem 0;
+    border-bottom: 1px solid var(--rule-soft);
+    vertical-align: baseline;
+  }
+
+  td:first-child { font-variation-settings: "wdth" 100, "wght" 600; }
+
+  .t-time {
+    font-variation-settings: "wdth" var(--narrow), "wght" 600;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  .t-cap { color: var(--ink-2); white-space: nowrap; }
+  .t-note { color: var(--ink-2); }
+
+  /* ---------- membership ---------- */
+
+  .plans {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    border-top: 1px solid var(--ink);
+  }
+
+  .plan {
+    padding: 2rem 2rem 0 0;
+    border-right: 1px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+  }
+
+  .plan + .plan { padding-left: 2rem; }
+  .plan:last-child { border-right: none; padding-right: 0; }
+
+  .plan h3 {
+    margin: 0;
+    font-size: var(--s3);
+    font-variation-settings: "wdth" 100, "wght" 700;
+  }
+
+  .price {
+    font-variation-settings: "wdth" 118, "wght" 800;
+    font-variant-numeric: tabular-nums;
+    font-size: 2.75rem;
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
+
+  .price em {
+    font-style: normal;
+    font-size: var(--s2);
+    font-variation-settings: "wdth" 100, "wght" 500;
+    letter-spacing: 0;
+    color: var(--ink-2);
+    margin-left: 0.4rem;
+  }
+
+  .plan ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 0.55rem;
+    font-size: var(--s2);
+    color: var(--ink-2);
+  }
+
+  .plan ul li { padding-left: 1rem; position: relative; }
+
+  .plan ul li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.62em;
+    width: 6px;
+    height: 1px;
+    background: var(--cyan);
+  }
+
+  .plan .common {
+    font-size: var(--s2);
+    color: var(--pink);
+    font-variation-settings: "wdth" 100, "wght" 600;
+    margin: 0;
+  }
+
+  .plans-foot {
+    margin: 2rem 0 0;
+    color: var(--ink-2);
+    max-width: var(--measure);
+    font-size: var(--s2);
+  }
+
+  /* ---------- visit ---------- */
+
+  .visit {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 4rem;
+  }
+
+  .visit address {
+    font-style: normal;
+    font-variation-settings: "wdth" 112, "wght" 700;
+    font-size: var(--s5);
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    margin-bottom: 1.25rem;
+  }
+
+  .visit p {
+    color: var(--panel-ink-2);
+    max-width: 42ch;
+    margin: 0 0 1rem;
+  }
+
+  .visit a { color: var(--cyan); text-decoration-color: var(--cyan); }
+
+  .hours {
+    margin: 0;
+    border-top: 1px solid var(--panel-rule);
+  }
+
+  .hours div {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+    padding: 0.7rem 0;
+    border-bottom: 1px solid var(--panel-rule);
+    font-size: var(--s2);
+  }
+
+  .hours dt { margin: 0; color: var(--panel-ink-2); }
+
+  .hours dd {
+    margin: 0;
+    font-variant-numeric: tabular-nums;
+    font-variation-settings: "wdth" var(--narrow), "wght" 600;
+  }
+
+  footer {
+    background: var(--panel-2);
+    color: var(--panel-ink-2);
+    font-size: var(--s1);
+    padding-block: 1.75rem;
+  }
+
+  footer .wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 2rem;
+    justify-content: space-between;
+  }
+
+  /* ---------- ambient liquid layer ----------
+     The canvas sits behind the page, not over it, so links stay clickable.
+     Every veil below is gated on .liquid-on, which the script adds only once
+     the WebGL background has actually rendered — if the module is blocked or
+     the visitor asked for reduced motion, the solid palette stays untouched. */
+
+  #liquid-canvas {
+    position: fixed;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+    touch-action: none;
+  }
+
+  .hero, .section, footer {
+    position: relative;
+    z-index: 1;
+  }
+
+  :root.liquid-on .hero {
+    background:
+      radial-gradient(120% 95% at 78% -10%, rgba(188, 19, 254, 0.26), transparent 62%),
+      radial-gradient(95% 75% at 4% 105%, rgba(0, 184, 255, 0.16), transparent 62%),
+      rgba(13, 2, 33, 0.36);
+  }
+
+  :root.liquid-on .section {
+    background: rgba(13, 2, 33, 0.80);
+    backdrop-filter: blur(7px) saturate(1.15);
+    -webkit-backdrop-filter: blur(7px) saturate(1.15);
+  }
+
+  :root.liquid-on .section-alt {
+    background: rgba(21, 8, 44, 0.84);
+  }
+
+  :root.liquid-on .section-dark {
+    background:
+      radial-gradient(85% 120% at 92% 0%, rgba(0, 184, 255, 0.18), transparent 60%),
+      rgba(26, 27, 46, 0.76);
+  }
+
+  :root.liquid-on .board {
+    background: rgba(26, 27, 46, 0.82);
+    backdrop-filter: blur(12px) saturate(1.2);
+    -webkit-backdrop-filter: blur(12px) saturate(1.2);
+  }
+
+  :root.liquid-on footer {
+    background: rgba(8, 1, 22, 0.88);
+    backdrop-filter: blur(7px);
+    -webkit-backdrop-filter: blur(7px);
+  }
+
+  /* ---------- responsive ---------- */
+
+  @media (max-width: 940px) {
+    .hero-grid, .split, .visit { grid-template-columns: minmax(0, 1fr); gap: 2.75rem; }
+    .kit { grid-template-columns: minmax(0, 1fr); column-gap: 0; }
+    .plans { grid-template-columns: minmax(0, 1fr); }
+    .plan { padding: 1.75rem 0; border-right: none; border-bottom: 1px solid var(--rule); }
+    .plan + .plan { padding-left: 0; }
+    .plan:last-child { border-bottom: none; }
+    .section { padding-block: 3.5rem; }
+    .hero { padding-bottom: 3.25rem; }
+    .topbar { padding-bottom: 2.5rem; }
+  }
+
+  @media (max-width: 560px) {
+    .facts div { grid-template-columns: minmax(0, 1fr); gap: 0.15rem; }
+    .nav { gap: 1.1rem; }
+    .kit b { min-width: 4rem; }
+  }
+</style>
+
+<canvas id="liquid-canvas" aria-hidden="true"></canvas>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="topbar">
+      <div class="mark">Dave&rsquo;s Gym <span>Brunswick, since 2009</span></div>
+      <nav class="nav">
+        <a href="#room">The room</a>
+        <a href="#coaching">Coaching</a>
+        <a href="#timetable">Timetable</a>
+        <a href="#membership">Membership</a>
+        <a href="#visit">Find us</a>
+      </nav>
+    </div>
+
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <h1 class="display">Eight racks, real plates, a coach on the floor.</h1>
+        <p class="lede">A strength gym for people who came here to train. The first session is free, and you do it with Dave.</p>
+        <div class="actions">
+          <a class="btn btn-solid" href="#visit">Book a free first session</a>
+          <a class="btn btn-ghost" href="#room">See what&rsquo;s in the room</a>
+        </div>
+      </div>
+
+      <div class="board">
+        <div class="board-state">
+          <strong id="state"><span class="dot"></span>Open to members</strong>
+          <span class="sub" id="state-sub">Reception is staffed 6:00 to 20:00 today.</span>
+        </div>
+
+        <div>
+          <div class="chart" id="chart" role="img" aria-label="How busy the gym usually is, hour by hour"></div>
+          <div class="chart-axis">
+            <span>12am</span><span>6am</span><span>12pm</span><span>6pm</span><span>11pm</span>
+          </div>
+        </div>
+
+        <div class="days" id="days"></div>
+
+        <div class="board-state">
+          <span class="sub" id="busy-sub">Usually steady at this hour.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="section" id="room">
+  <div class="wrap">
+    <h2 class="h2">What&rsquo;s in the room</h2>
+    <p class="section-intro">One floor, 620 square metres, no mirrors along the platforms. Everything here gets used.</p>
+    <div class="kit">
+      <div><b>8</b><p>Power racks, all with spotter arms</p></div>
+      <div><b>14</b><p>Oak lifting platforms with rubber surrounds</p></div>
+      <div><b>3</b><p>Competition benches, IPF spec</p></div>
+      <div><b>2,400&nbsp;kg</b><p>Calibrated steel, plus bumpers for the platforms</p></div>
+      <div><b>22</b><p>Bars &mdash; power, deadlift, squat, and four 15&nbsp;kg</p></div>
+      <div><b>60&nbsp;kg</b><p>Heaviest dumbbell pair, in 2.5&nbsp;kg steps from 5</p></div>
+      <div><b>4</b><p>Glute-ham developers, and two reverse hypers</p></div>
+      <div><b>22&nbsp;m</b><p>Sled track down the eastern wall</p></div>
+      <div class="note"><b>Chalk</b><p>Block chalk in every bowl. Not the liquid stuff.</p></div>
+      <div class="note"><b>Showers</b><p>Six of them, hot, towels included.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt" id="coaching">
+  <div class="wrap">
+    <div class="split">
+      <div>
+        <h2 class="h2">Dave has been on this floor since it opened</h2>
+        <div class="prose">
+          <p>The gym started in a brick warehouse on Ferrier Street in 2009 with four racks and a borrowed forklift. The floor has grown since. The approach hasn&rsquo;t: learn the lifts properly, add weight slowly, keep turning up.</p>
+          <p>Every new member gets an hour on a platform before they get a fob. That hour covers the squat, the bench and the deadlift, what a warm-up set is actually for, and how to bail safely when a rep doesn&rsquo;t go. It&rsquo;s free, and nobody is sold anything at the end of it.</p>
+          <p>Four coaches work the floor across the staffed hours. If your setup looks off, one of them will tell you &mdash; that&rsquo;s the job, and it&rsquo;s why this place is quiet on injuries.</p>
+        </div>
+      </div>
+      <dl class="facts">
+        <div><dt>Opened</dt><dd>March 2009</dd></div>
+        <div><dt>Coaches on floor</dt><dd>Four, all ASCA Level 2</dd></div>
+        <div><dt>Members</dt><dd>410, capped at 450</dd></div>
+        <div><dt>Class size</dt><dd>Eight people, never more</dd></div>
+        <div><dt>Youngest member</dt><dd>14, training with a parent</dd></div>
+        <div><dt>Oldest member</dt><dd>81, deadlifts on Thursdays</dd></div>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="timetable">
+  <div class="wrap">
+    <h2 class="h2">Coached sessions</h2>
+    <p class="section-intro">Included with a full membership. Book on the door or by phone &mdash; your place is held until ten minutes before.</p>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Session</th>
+            <th scope="col">Days</th>
+            <th scope="col">Time</th>
+            <th scope="col">Places</th>
+            <th scope="col">Who it&rsquo;s for</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Barbell basics</td>
+            <td>Mon, Wed</td>
+            <td class="t-time">18:30&ndash;19:30</td>
+            <td class="t-cap">8</td>
+            <td class="t-note">Your first six weeks under a bar</td>
+          </tr>
+          <tr>
+            <td>Barbell basics</td>
+            <td>Sat</td>
+            <td class="t-time">09:00&ndash;10:00</td>
+            <td class="t-cap">8</td>
+            <td class="t-note">The same session, weekend slot</td>
+          </tr>
+          <tr>
+            <td>Strength block</td>
+            <td>Tue, Thu</td>
+            <td class="t-time">06:00 &amp; 18:00</td>
+            <td class="t-cap">10</td>
+            <td class="t-note">Programmed squat, bench, deadlift</td>
+          </tr>
+          <tr>
+            <td>Masters lifting</td>
+            <td>Mon, Thu</td>
+            <td class="t-time">10:00&ndash;11:15</td>
+            <td class="t-cap">12</td>
+            <td class="t-note">Over 55s. Slower warm-ups, same bars</td>
+          </tr>
+          <tr>
+            <td>Conditioning</td>
+            <td>Wed, Fri</td>
+            <td class="t-time">07:00&ndash;07:45</td>
+            <td class="t-cap">14</td>
+            <td class="t-note">Sled, carries, bike. No barbell</td>
+          </tr>
+          <tr>
+            <td>Open platform</td>
+            <td>Sat</td>
+            <td class="t-time">10:00&ndash;13:00</td>
+            <td class="t-cap">&mdash;</td>
+            <td class="t-note">Train your own way, a coach is there</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt" id="membership">
+  <div class="wrap">
+    <h2 class="h2">Membership</h2>
+    <p class="section-intro">Billed weekly, no lock-in on any of them. Give us a week&rsquo;s notice and you&rsquo;re out.</p>
+    <div class="plans">
+      <div class="plan">
+        <h3>Off-peak</h3>
+        <div class="price">$22<em>a week</em></div>
+        <ul>
+          <li>Weekdays, 6:00 to 15:00</li>
+          <li>All day Saturday and Sunday</li>
+          <li>Open platform on Saturdays</li>
+        </ul>
+      </div>
+      <div class="plan">
+        <h3>Full</h3>
+        <div class="price">$32<em>a week</em></div>
+        <p class="common">What most members are on.</p>
+        <ul>
+          <li>24-hour fob access, every day</li>
+          <li>Every coached session on the timetable</li>
+          <li>A form check whenever a coach is on</li>
+        </ul>
+      </div>
+      <div class="plan">
+        <h3>Coached</h3>
+        <div class="price">$79<em>a week</em></div>
+        <ul>
+          <li>Everything in Full</li>
+          <li>A written program, rewritten every four weeks</li>
+          <li>A fortnightly half-hour with your coach</li>
+          <li>Meet-day handling if you compete</li>
+        </ul>
+      </div>
+    </div>
+    <p class="plans-foot">A casual visit is $9. Students and shift workers pay the off-peak rate at any hour &mdash; bring something with a roster or an enrolment date on it. Memberships pause free for up to eight weeks a year.</p>
+  </div>
+</section>
+
+<section class="section section-dark" id="visit">
+  <div class="wrap">
+    <div class="visit">
+      <div>
+        <h2 class="h2">Come and have a look</h2>
+        <address>14 Ferrier Street<br>Brunswick VIC 3056</address>
+        <p>Walk in during staffed hours and someone will show you around. To book the free first session, call <a href="tel:+61390000000">(03) 9000 0000</a> or email <a href="mailto:train@davesgym.com.au">train@davesgym.com.au</a>.</p>
+        <p>Street parking on Ferrier is free after 18:00. Tram 19 stops at Albion Street, three minutes&rsquo; walk.</p>
+      </div>
+      <dl class="hours">
+        <div><dt>Members, every day</dt><dd>24 hours</dd></div>
+        <div><dt>Reception, Mon to Fri</dt><dd>6:00&ndash;20:00</dd></div>
+        <div><dt>Reception, Saturday</dt><dd>8:00&ndash;14:00</dd></div>
+        <div><dt>Reception, Sunday</dt><dd>8:00&ndash;12:00</dd></div>
+        <div><dt>Public holidays</dt><dd>Fob access only</dd></div>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>Dave&rsquo;s Gym, 14 Ferrier Street, Brunswick</span>
+    <span>(03) 9000 0000</span>
+  </div>
+</footer>
+
+<script>
+  var BUSY = [
+    [1, 1, 1, 1, 1, 1, 2, 4, 6, 8, 8, 6, 4, 3, 3, 3, 4, 4, 3, 2, 2, 1, 1, 1],
+    [1, 1, 1, 1, 2, 5, 8, 9, 7, 4, 5, 5, 6, 5, 4, 5, 7, 9, 10, 8, 6, 4, 2, 1],
+    [1, 1, 1, 1, 2, 6, 9, 8, 6, 4, 4, 5, 6, 5, 4, 5, 7, 9, 9, 7, 5, 3, 2, 1],
+    [1, 1, 1, 1, 2, 5, 8, 9, 7, 4, 4, 5, 6, 5, 4, 5, 7, 8, 9, 7, 5, 3, 2, 1],
+    [1, 1, 1, 1, 2, 6, 9, 8, 6, 5, 5, 5, 6, 5, 4, 5, 7, 9, 10, 8, 6, 4, 2, 1],
+    [1, 1, 1, 1, 2, 5, 8, 8, 6, 4, 4, 5, 6, 5, 4, 5, 7, 8, 7, 5, 4, 3, 2, 1],
+    [1, 1, 1, 1, 1, 2, 4, 6, 9, 10, 9, 7, 5, 4, 3, 3, 3, 3, 3, 2, 2, 1, 1, 1]
+  ];
+
+  var DAY_NAMES = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  var RECEPTION = [[8, 12], [6, 20], [6, 20], [6, 20], [6, 20], [6, 20], [8, 14]];
+
+  var chart = document.getElementById("chart");
+  var daysEl = document.getElementById("days");
+  var stateEl = document.getElementById("state");
+  var stateSub = document.getElementById("state-sub");
+  var busySub = document.getElementById("busy-sub");
+
+  var now = new Date();
+  var today = now.getDay();
+  var hour = now.getHours();
+
+  var bars = [];
+  for (var i = 0; i < 24; i++) {
+    var bar = document.createElement("div");
+    bar.className = "bar";
+    bar.style.animationDelay = (i * 14) + "ms";
+    chart.appendChild(bar);
+    bars.push(bar);
+  }
+
+  function level(v) {
+    if (v <= 2) return "very quiet";
+    if (v <= 5) return "steady";
+    if (v <= 7) return "busy";
+    return "packed";
+  }
+
+  function clockLabel(h) {
+    var suffix = h < 12 ? "am" : "pm";
+    var display = h % 12 === 0 ? 12 : h % 12;
+    return display + suffix;
+  }
+
+  function draw(day) {
+    var data = BUSY[day];
+    var peak = 0;
+    for (var i = 0; i < 24; i++) {
+      bars[i].style.height = Math.max(6, Math.round(data[i] / 10 * 100)) + "%";
+      if (day === today && i === hour) {
+        bars[i].classList.add("now");
+      } else {
+        bars[i].classList.remove("now");
+      }
+      if (data[i] > data[peak]) { peak = i; }
+    }
+
+    chart.setAttribute("aria-label",
+      "How busy Dave's Gym usually is on " + DAY_NAMES[day] +
+      ", hour by hour. Busiest around " + clockLabel(peak) + ".");
+
+    for (var d = 0; d < daysEl.children.length; d++) {
+      daysEl.children[d].setAttribute("aria-pressed", d === day ? "true" : "false");
+    }
+
+    if (day === today) {
+      busySub.textContent = "Usually " + level(data[hour]) + " at this hour.";
+    } else {
+      busySub.textContent = DAY_NAMES[day] + " is busiest around " + clockLabel(peak) + ".";
+    }
+  }
+
+  DAY_NAMES.forEach(function (name, index) {
+    var btn = document.createElement("button");
+    btn.type = "button";
+    btn.textContent = name;
+    btn.setAttribute("aria-pressed", "false");
+    btn.addEventListener("click", function () { draw(index); });
+    daysEl.appendChild(btn);
+  });
+
+  function pad(h) { return (h < 10 ? "0" : "") + h + ":00"; }
+
+  var open = RECEPTION[today];
+
+  if (hour >= open[0] && hour < open[1]) {
+    stateEl.classList.remove("fob-only");
+    stateEl.innerHTML = '<span class="dot"></span>Staffed right now';
+    stateSub.textContent = "A coach is on the floor until " + pad(open[1]) +
+      ". Walk in any time before then.";
+  } else {
+    var nextDay = hour >= open[1] ? (today + 1) % 7 : today;
+    stateEl.classList.add("fob-only");
+    stateEl.innerHTML = '<span class="dot"></span>Open to members';
+    stateSub.textContent = "Reception is closed. Next staffed from " +
+      pad(RECEPTION[nextDay][0]) + ", with fob access all night.";
+  }
+
+  draw(today);
+</script>
+
+<script type="module">
+  // Liquid metal background, ported from the React component.
+  //
+  // Two changes were forced by the artifact sandbox, which only allows scripts
+  // from a short CDN allowlist and blocks every other external request:
+  //   1. The library is imported directly from jsdelivr (allowed) instead of
+  //      being injected as a <script> element with inline module source.
+  //   2. The original environment map lives on cdn.21st.dev, which the sandbox
+  //      blocks for images. It is generated here on a canvas in the site's own
+  //      neon palette and handed over as a data URI, so the metal reflects
+  //      magenta, cyan and green rather than a stock photo.
+
+  function buildEnvMap() {
+    var c = document.createElement("canvas");
+    c.width = 512;
+    c.height = 512;
+    var g = c.getContext("2d");
+
+    g.fillStyle = "#0D0221";
+    g.fillRect(0, 0, 512, 512);
+
+    var blobs = [
+      [130, 110, 210, "#BC13FE"],
+      [400, 165, 180, "#00B8FF"],
+      [255, 405, 195, "#02FF9F"],
+      [60, 445, 130, "#FF0055"],
+      [470, 470, 150, "#BC13FE"]
+    ];
+
+    g.globalCompositeOperation = "lighter";
+    blobs.forEach(function (b) {
+      var grad = g.createRadialGradient(b[0], b[1], 0, b[0], b[1], b[2]);
+      grad.addColorStop(0, b[3]);
+      grad.addColorStop(1, "rgba(13, 2, 33, 0)");
+      g.fillStyle = grad;
+      g.fillRect(0, 0, 512, 512);
+    });
+    g.globalCompositeOperation = "source-over";
+
+    return c.toDataURL("image/png");
+  }
+
+  var canvas = document.getElementById("liquid-canvas");
+  var stillPlease = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (canvas && !stillPlease) {
+    try {
+      var mod = await import("https://cdn.jsdelivr.net/npm/threejs-components@0.0.22/build/backgrounds/liquid1.min.js");
+      var LiquidBackground = mod.default || mod;
+
+      var app = LiquidBackground(canvas);
+      app.loadImage(buildEnvMap());
+      app.liquidPlane.material.metalness = 0.75;
+      app.liquidPlane.material.roughness = 0.25;
+      app.liquidPlane.uniforms.displacementScale.value = 5;
+      app.setRain(false);
+
+      window.__liquidApp = app;
+      document.documentElement.classList.add("liquid-on");
+    } catch (err) {
+      // Blocked, offline, or no WebGL: drop the canvas and keep the solid page.
+      canvas.remove();
+    }
+  } else if (canvas) {
+    canvas.remove();
+  }
+</script>
