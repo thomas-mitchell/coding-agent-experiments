@@ -1,0 +1,38 @@
+{
+  "name": "gemini-embedding-rag",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit",
+    "ingest": "node --conditions=react-server --import tsx scripts/ingest.ts",
+    "query": "node --conditions=react-server --import tsx scripts/query.ts",
+    "check:secrets": "node scripts/check-secrets.mjs"
+  },
+  "dependencies": {
+    "@google/genai": "^1.30.0",
+    "@supabase/supabase-js": "^2.58.0",
+    "ffmpeg-static": "^5.2.0",
+    "next": "^15.5.4",
+    "openai": "^6.6.0",
+    "pdf-lib": "^1.17.1",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "server-only": "^0.0.1",
+    "unpdf": "^1.3.2",
+    "zod": "^4.1.11"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.13",
+    "@types/node": "^24.5.2",
+    "@types/react": "^19.1.13",
+    "@types/react-dom": "^19.1.9",
+    "dotenv": "^17.2.2",
+    "tailwindcss": "^4.1.13",
+    "tsx": "^4.20.5",
+    "typescript": "^5.9.2"
+  }
+}
