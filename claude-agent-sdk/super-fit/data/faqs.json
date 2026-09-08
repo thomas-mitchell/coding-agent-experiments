@@ -1,0 +1,151 @@
+{
+  "business": {
+    "name": "Super Fit",
+    "description": "A chain of 24/7 gyms and group fitness studios.",
+    "support_hours": "Mon-Fri 7am-7pm, Sat-Sun 9am-5pm (AEST)",
+    "support_email": "support@superfit.example",
+    "phone": "1300 000 000"
+  },
+  "faqs": [
+    {
+      "id": "MEM-001",
+      "category": "memberships",
+      "question": "What membership plans do you offer and how much do they cost?",
+      "answer": "Super Fit has three plans, all billed fortnightly with no lock-in contract:\n- Flex ($24.95/fortnight): 24/7 gym floor access at your home club.\n- Plus ($34.95/fortnight): everything in Flex, plus unlimited group classes and access to all clubs nationwide.\n- Performance ($49.95/fortnight): everything in Plus, plus two 30-minute personal training sessions each month and full app programming.\nAll plans have a one-off $49 joining fee, which is waived during promotional periods.",
+      "tags": ["pricing", "plans", "cost", "flex", "plus", "performance", "join", "membership", "fees"]
+    },
+    {
+      "id": "MEM-002",
+      "category": "memberships",
+      "question": "How do I cancel my membership?",
+      "answer": "You can cancel in the Super Fit app under Account > Membership > Cancel, or by replying to any billing email. We require 14 days notice, so you will be billed once more after you cancel and keep access until the end of that period. There is no cancellation fee on any plan. If you are cancelling because of injury, relocation, or financial hardship, we can often waive the notice period - a support agent needs to review these case by case.",
+      "tags": ["cancel", "cancellation", "quit", "leave", "end membership", "notice period", "terminate"]
+    },
+    {
+      "id": "MEM-003",
+      "category": "memberships",
+      "question": "Can I freeze or pause my membership?",
+      "answer": "Yes. You can freeze any membership for 2 to 12 weeks per calendar year at no cost, via the app under Account > Membership > Freeze. Freezes start at your next billing date, not immediately. Medical freezes longer than 12 weeks are available with a doctor's certificate and do not count toward your annual freeze allowance.",
+      "tags": ["freeze", "pause", "hold", "suspend", "on hold", "travel", "holiday", "injury"]
+    },
+    {
+      "id": "MEM-004",
+      "category": "memberships",
+      "question": "Can I upgrade or downgrade my plan?",
+      "answer": "Yes, any time, through the app under Account > Membership > Change Plan. Upgrades take effect immediately and we charge the pro-rata difference for the current fortnight. Downgrades take effect at your next billing date. There is no fee to change plans and no limit on how often you change.",
+      "tags": ["upgrade", "downgrade", "change plan", "switch", "plan change", "pro-rata"]
+    },
+    {
+      "id": "MEM-005",
+      "category": "memberships",
+      "question": "Do you offer student, senior, or corporate discounts?",
+      "answer": "Yes. Students and seniors get 15% off any plan with valid ID uploaded in the app. Corporate rates are available if your employer is a Super Fit partner - staff at partner companies get 20% off and a waived joining fee. Discounts do not stack; we apply the largest one you are eligible for.",
+      "tags": ["discount", "student", "senior", "concession", "corporate", "cheaper", "promo"]
+    },
+    {
+      "id": "BILL-001",
+      "category": "billing",
+      "question": "When am I billed and what payment methods do you accept?",
+      "answer": "Memberships are billed fortnightly on Thursdays, starting from your join date. We accept Visa, Mastercard, and Australian bank accounts via direct debit. We do not accept AMEX, PayPal, or cash for recurring memberships. You can update your payment details in the app under Account > Payment.",
+      "tags": ["billing", "payment", "direct debit", "credit card", "when charged", "billing date", "visa", "mastercard"]
+    },
+    {
+      "id": "BILL-002",
+      "category": "billing",
+      "question": "My payment failed - what happens now?",
+      "answer": "If a payment fails we retry automatically after 3 days, then again after 7 days. Your access stays active during that window. A $9.90 dishonour fee applies from the second failed attempt. If all retries fail, access is suspended until the balance is cleared, which you can do instantly in the app under Account > Billing > Pay Now. We never suspend an account without emailing you first.",
+      "tags": ["failed payment", "declined", "dishonour", "overdue", "suspended", "arrears", "retry", "card declined"]
+    },
+    {
+      "id": "BILL-003",
+      "category": "billing",
+      "question": "Can I get a refund?",
+      "answer": "We refund in these cases: a duplicate or incorrect charge, a charge taken after a confirmed cancellation, or a class you were charged for that Super Fit cancelled. Refunds go back to the original payment method within 5 business days. Change-of-mind refunds on paid memberships are not standard policy, but a support agent can review your situation - especially within 7 days of joining.",
+      "tags": ["refund", "money back", "reimburse", "double charge", "overcharged", "wrong charge"]
+    },
+    {
+      "id": "BILL-004",
+      "category": "billing",
+      "question": "Why was I charged after I cancelled?",
+      "answer": "Cancellations require 14 days notice, so one final fortnightly payment after your cancellation date is expected and you keep full access until that period ends. If you were charged more than once after cancelling, or charged after the notice period ended, that is an error and we will refund it - a support agent needs to check the account.",
+      "tags": ["charged after cancelling", "still billed", "extra charge", "cancellation billing"]
+    },
+    {
+      "id": "CLS-001",
+      "category": "classes",
+      "question": "How do I book a group fitness class?",
+      "answer": "Book through the Super Fit app under Classes, up to 7 days ahead. Group classes are included at no extra cost on Plus and Performance plans. Flex members can book individual classes for $12 each. Bookings open at 6am daily for the day 7 days out.",
+      "tags": ["book", "class", "booking", "group fitness", "reserve", "timetable", "schedule"]
+    },
+    {
+      "id": "CLS-002",
+      "category": "classes",
+      "question": "What is your class cancellation and no-show policy?",
+      "answer": "Cancel a class booking at least 4 hours before it starts, free of charge, in the app. Cancelling inside 4 hours or not turning up counts as a no-show. Three no-shows in a rolling 30 days blocks new class bookings for 7 days. No-shows caused by illness or an emergency can be reversed by a support agent.",
+      "tags": ["no show", "cancel class", "missed class", "late cancellation", "class penalty", "penalised", "fee", "blocked from booking", "waitlist"]
+    },
+    {
+      "id": "CLS-003",
+      "category": "classes",
+      "question": "What classes do you run?",
+      "answer": "Every club runs Strength, HIIT, Spin, Yoga, Pilates, and Boxing. Larger clubs also run Reformer Pilates and Aqua. Class length is 45 minutes, except Yoga and Reformer at 60. The live timetable per club is in the app under Classes > Timetable, since it varies by location and season.",
+      "tags": ["classes", "types", "hiit", "spin", "yoga", "pilates", "boxing", "reformer", "timetable"]
+    },
+    {
+      "id": "PT-001",
+      "category": "personal-training",
+      "question": "How does personal training work and what does it cost?",
+      "answer": "PT sessions are 30 or 60 minutes with an accredited trainer. Casual rates are $45 (30 min) and $80 (60 min), with packs of 10 at 15% off. Performance members get two 30-minute sessions included each month; unused included sessions do not roll over. Book PT in the app under Training > Book a Trainer.",
+      "tags": ["personal training", "pt", "trainer", "coach", "one on one", "session", "price"]
+    },
+    {
+      "id": "PT-002",
+      "category": "personal-training",
+      "question": "Can I cancel or reschedule a PT session?",
+      "answer": "Reschedule or cancel free of charge up to 24 hours before the session, in the app. Inside 24 hours the session is charged in full or deducted from your pack, because the trainer's time is already committed. Trainers who cancel on you always credit the session back plus one free session.",
+      "tags": ["reschedule", "cancel pt", "24 hours", "missed session", "trainer cancelled"]
+    },
+    {
+      "id": "FAC-001",
+      "category": "facilities",
+      "question": "What are your opening hours?",
+      "answer": "Gym floor access is 24/7 at all clubs for every membership plan, using your app QR code or key fob. Staffed hours are Mon-Fri 6am-8pm and Sat-Sun 8am-4pm. Group classes only run during staffed hours. Some clubs inside shopping centres follow centre hours - the app shows the exact hours for your club.",
+      "tags": ["hours", "opening", "open", "24/7", "staffed", "access times", "when open"]
+    },
+    {
+      "id": "FAC-002",
+      "category": "facilities",
+      "question": "Can I bring a guest?",
+      "answer": "Plus and Performance members get 2 guest passes per month; Flex members can buy a day pass for their guest at $15. Guests must be 16 or older, sign a waiver at reception, and visit during staffed hours. Guest passes do not roll over month to month.",
+      "tags": ["guest", "friend", "bring someone", "day pass", "visitor", "trial"]
+    },
+    {
+      "id": "FAC-003",
+      "category": "facilities",
+      "question": "What facilities and amenities are available?",
+      "answer": "All clubs have free weights, cable and plate-loaded machines, cardio equipment, a functional training area, showers, and lockers (bring your own padlock). Larger clubs add a sauna, recovery room, and creche. Towel hire is $3. We do not have pools at any Super Fit location.",
+      "tags": ["facilities", "amenities", "showers", "lockers", "sauna", "pool", "creche", "equipment", "towel"]
+    },
+    {
+      "id": "APP-001",
+      "category": "app",
+      "question": "I cannot log in to the app or my QR code will not scan.",
+      "answer": "First try: log out and back in, then check for an app update. If the QR code will not scan at the door, turn screen brightness up fully - the scanners struggle with dim screens. If you are locked out, use Forgot Password with the email on your membership. If the reset email does not arrive within 10 minutes, check spam; if it is still missing, the email on the account may be wrong and a support agent needs to fix it.",
+      "tags": ["app", "login", "cant log in", "qr code", "scan", "password", "locked out", "reset", "door"]
+    },
+    {
+      "id": "POL-001",
+      "category": "policies",
+      "question": "What is the minimum age to join?",
+      "answer": "You can join on your own from 16. Members aged 14 and 15 can join with a parent or guardian co-signing and are limited to staffed hours with a mandatory induction. We do not accept members under 14.",
+      "tags": ["age", "minimum age", "teen", "under 18", "kids", "junior"]
+    },
+    {
+      "id": "POL-002",
+      "category": "policies",
+      "question": "I was injured at the gym or have a health concern - what should I do?",
+      "answer": "If you are injured at a club, tell staff so an incident report is logged, or call us during support hours. For any health condition, injury, or pain, talk to your doctor before continuing to train - our staff and this assistant cannot give medical advice. If a health issue means you cannot train, you can freeze your membership and, with a doctor's certificate, cancel without notice.",
+      "tags": ["injury", "injured", "hurt", "pain", "medical", "health", "incident", "sick", "doctor"]
+    }
+  ]
+}
